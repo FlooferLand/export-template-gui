@@ -28,7 +28,7 @@ func _ready() -> void:
 	# Displaying the project info
 	name_label.text = info.name
 	path_label.text = info.path
-	fav_icon.texture = tex_favourited if info.favourited else tex_unfavourited
+	fav_icon.texture = tex_favourited if info.favourite else tex_unfavourited
 	meta_version.text = info.version
 	meta_date.text = info.date
 	icon.texture = info.icon

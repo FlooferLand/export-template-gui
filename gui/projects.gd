@@ -23,6 +23,7 @@ func _ready() -> void:
 		return
 
 	# Reading the projects
+	# TODO: Add sorting, and always sort favourites to be at the top
 	for path in config.get_sections():
 		# Reading additional project data
 		var additional := ConfigFile.new()
@@ -40,7 +41,7 @@ func _ready() -> void:
 		entry.info.path = path
 		entry.info.name = project_name
 		entry.info.icon = ImageTexture.create_from_image(project_icon)
-		entry.info.favourited = false    # ??
+		entry.info.favourite = config.get_value(path, "favorite", false)
 		entry.info.date = "??-??-????"   # ??
 		entry.info.version = "4.x"       # ??
 		project_container.add_child(entry)
