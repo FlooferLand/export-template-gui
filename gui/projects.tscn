@@ -1,0 +1,184 @@
+[gd_scene load_steps=11 format=3 uid="uid://c0uhggdatyjo"]
+
+[ext_resource type="Script" path="res://gui/projects.gd" id="1_6yi3o"]
+[ext_resource type="Texture2D" uid="uid://b8s0h1cq2y8rv" path="res://gui/icons/Search.svg" id="2_4ictq"]
+[ext_resource type="Texture2D" uid="uid://bj7nutsmbqcwn" path="res://icon.svg" id="2_eqr1i"]
+[ext_resource type="Texture2D" uid="uid://chpd0lsnsrqqg" path="res://gui/icons/DefaultProjectIcon.svg" id="3_tvav5"]
+[ext_resource type="PackedScene" uid="uid://d2dq3anjcgc8t" path="res://gui/templates/project_entry.tscn" id="4_72jnl"]
+[ext_resource type="Texture2D" uid="uid://dgydb40tnnfbw" path="res://gui/icons/Edit.svg" id="5_fp2oi"]
+[ext_resource type="Texture2D" uid="uid://biyoergq0p3td" path="res://gui/icons/Bake.svg" id="6_hewr1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ivug"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_25qb7"]
+font_size = 14
+font_color = Color(0.39, 0.562833, 1, 0.658824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dmd6"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+
+[node name="Projects" type="Control" node_paths=PackedStringArray("project_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6yi3o")
+project_container = NodePath("VBoxContainer/Main/VBoxContainer/Main/MarginContainer/ScrollContainer/PanelContainer/Projects")
+project_template = ExtResource("4_72jnl")
+default_icon = ExtResource("3_tvav5")
+
+[node name="Backdrop" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ivug")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="Logo" type="VBoxContainer" parent="VBoxContainer/Top"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Top/Logo"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Top/Logo/Name"]
+layout_mode = 2
+texture = ExtResource("2_eqr1i")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Top/Logo/Name"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Top/Logo/Name/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="VBoxContainer/Top/Logo/Name/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Export Template GUI"
+
+[node name="Credits" type="Label" parent="VBoxContainer/Top/Logo/Name/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "By FlooferLand & Swarkin"
+label_settings = SubResource("LabelSettings_25qb7")
+
+[node name="Main" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Backdrop" type="ColorRect" parent="VBoxContainer/Main"]
+layout_mode = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Main"]
+layout_mode = 2
+
+[node name="TopBar" type="MarginContainer" parent="VBoxContainer/Main/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Main/VBoxContainer/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Main/VBoxContainer/TopBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Filter Projects"
+right_icon = ExtResource("2_4ictq")
+
+[node name="Sort" type="HSplitContainer" parent="VBoxContainer/Main/VBoxContainer/TopBar/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Main/VBoxContainer/TopBar/HBoxContainer/Sort"]
+layout_mode = 2
+text = "Sort:"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/Main/VBoxContainer/TopBar/HBoxContainer/Sort"]
+layout_mode = 2
+focus_mode = 0
+selected = 0
+item_count = 4
+popup/item_0/text = "Last Edited"
+popup/item_1/text = "Name"
+popup/item_1/id = 1
+popup/item_2/text = "Path"
+popup/item_2/id = 2
+popup/item_3/text = "Tags"
+popup/item_3/id = 3
+
+[node name="Main" type="HBoxContainer" parent="VBoxContainer/Main/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Main/VBoxContainer/Main"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Main/VBoxContainer/Main/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Main/VBoxContainer/Main/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0dmd6")
+
+[node name="Projects" type="VBoxContainer" parent="VBoxContainer/Main/VBoxContainer/Main/MarginContainer/ScrollContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Sidebar" type="MarginContainer" parent="VBoxContainer/Main/VBoxContainer/Main"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Main/VBoxContainer/Main/Sidebar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Edit" type="Button" parent="VBoxContainer/Main/VBoxContainer/Main/Sidebar/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Edit"
+icon = ExtResource("5_fp2oi")
+
+[node name="Build" type="Button" parent="VBoxContainer/Main/VBoxContainer/Main/Sidebar/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Quick build"
+icon = ExtResource("6_hewr1")
+
+[connection signal="pressed" from="VBoxContainer/Main/VBoxContainer/Main/Sidebar/VBoxContainer/Edit" to="." method="_on_edit_pressed"]

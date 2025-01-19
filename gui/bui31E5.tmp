@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3 uid="uid://0jbmy6adrr83"]
+
+[ext_resource type="Script" path="res://gui/builder.gd" id="1_hj4oe"]
+[ext_resource type="Texture2D" uid="uid://cufpy5oq1hjtw" path="res://gui/icons/Tools.svg" id="2_f4td7"]
+[ext_resource type="Texture2D" uid="uid://cco20keixaygc" path="res://gui/icons/Remove.svg" id="3_o71wf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jwb6"]
+bg_color = Color(0, 0, 0, 0.294118)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ooo5u"]
+line_spacing = 0.0
+font_size = 12
+font_color = Color(0, 0.545098, 1, 0.827451)
+
+[node name="Main" type="Control" node_paths=PackedStringArray("build_size_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hj4oe")
+build_size_label = NodePath("VSplitContainer/BottomPanel/MarginContainer/HBoxContainer/VBoxContainer/Size")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.103744, 0.103744, 0.103744, 1)
+
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+dragger_visibility = 1
+
+[node name="Tabs" type="TabContainer" parent="VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Modules" type="ScrollContainer" parent="VSplitContainer/Tabs"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="WidgetList" type="VBoxContainer" parent="VSplitContainer/Tabs/Modules"]
+layout_mode = 2
+
+[node name="BottomPanel" type="PanelContainer" parent="VSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6jwb6")
+
+[node name="MarginContainer" type="MarginContainer" parent="VSplitContainer/BottomPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VSplitContainer/BottomPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Build" type="Button" parent="VSplitContainer/BottomPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Build"
+icon = ExtResource("2_f4td7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VSplitContainer/BottomPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Clean" type="Button" parent="VSplitContainer/BottomPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Clean Godot build"
+icon = ExtResource("3_o71wf")
+
+[node name="Size" type="Label" parent="VSplitContainer/BottomPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "(?? GBs)"
+label_settings = SubResource("LabelSettings_ooo5u")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VSplitContainer/BottomPanel/MarginContainer/HBoxContainer/Build" to="." method="_on_build_pressed"]

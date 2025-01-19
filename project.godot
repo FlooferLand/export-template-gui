@@ -1,0 +1,51 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="export-template-gui"
+run/main_scene="res://gui/projects.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+run/low_processor_mode=true
+run/low_processor_mode_sleep_usec=10000
+boot_splash/bg_color=Color(0.0728427, 0.0728426, 0.0728425, 1)
+boot_splash/show_image=false
+config/icon="res://icon.svg"
+
+[autoload]
+
+Autoload="*res://gui/autoload/autoload.gd"
+ProjectManager="*res://gui/autoload/project_manager.gd"
+
+[display]
+
+window/subwindows/embed_subwindows=false
+
+[dotnet]
+
+project/assembly_name="export-template-gui"
+
+[file_customization]
+
+folder_colors={
+"res://gui/": "green"
+}
+
+[physics]
+
+common/physics_ticks_per_second=1
+common/max_physics_steps_per_frame=1
+common/physics_jitter_fix=0.0
+common/enable_object_picking=false
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

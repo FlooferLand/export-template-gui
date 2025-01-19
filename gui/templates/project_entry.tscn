@@ -1,0 +1,159 @@
+[gd_scene load_steps=9 format=3 uid="uid://d2dq3anjcgc8t"]
+
+[ext_resource type="Script" path="res://gui/templates/project_entry.gd" id="1_jvf2q"]
+[ext_resource type="Texture2D" uid="uid://xtij5n00gi0b" path="res://gui/icons/Favorites.svg" id="1_uulxb"]
+[ext_resource type="Texture2D" uid="uid://bj7nutsmbqcwn" path="res://icon.svg" id="2_kjcbb"]
+[ext_resource type="Texture2D" uid="uid://cuqloommov0p2" path="res://gui/icons/FolderMediumThumb.svg" id="3_1e5un"]
+[ext_resource type="Texture2D" uid="uid://bn5n6nfvvjvj8" path="res://gui/icons/NonFavorite.svg" id="3_v1cmo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qmmom"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iny3q"]
+font_color = Color(1, 1, 1, 0.65098)
+
+[sub_resource type="LabelSettings" id="LabelSettings_13hsq"]
+font_color = Color(1, 1, 1, 0.329412)
+
+[node name="ProjectEntry" type="Control" node_paths=PackedStringArray("icon", "fav_icon", "folder_button", "button_highlight", "name_label", "path_label", "meta_version", "meta_date")]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.123
+offset_bottom = -79.704
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_jvf2q")
+icon = NodePath("MarginContainer/HBoxContainer/Icon")
+fav_icon = NodePath("MarginContainer/HBoxContainer/FavIcon")
+folder_button = NodePath("MarginContainer/HBoxContainer/HBoxContainer/Info/HBoxContainer/FolderButton")
+button_highlight = NodePath("ButtonHighlight")
+name_label = NodePath("MarginContainer/HBoxContainer/HBoxContainer/Info/ProjectName")
+path_label = NodePath("MarginContainer/HBoxContainer/HBoxContainer/Info/HBoxContainer/ProjectPath")
+meta_version = NodePath("MarginContainer/HBoxContainer/HBoxContainer/Metadata/Version")
+meta_date = NodePath("MarginContainer/HBoxContainer/HBoxContainer/Metadata/Date of uhhhh")
+tex_favourited = ExtResource("1_uulxb")
+tex_unfavourited = ExtResource("3_v1cmo")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.109361, 0.126655, 0.158785, 1)
+
+[node name="ButtonHighlight" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="FavIcon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Can't change favourites here.
+Adjust things from Godot's project manager"
+texture = ExtResource("1_uulxb")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_kjcbb")
+expand_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Info" type="VBoxContainer" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ProjectName" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/Info"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "project name"
+text_overrun_behavior = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/HBoxContainer/Info"]
+modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="FolderButton" type="TextureButton" parent="MarginContainer/HBoxContainer/HBoxContainer/Info/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("3_1e5un")
+texture_pressed = ExtResource("3_1e5un")
+texture_hover = ExtResource("3_1e5un")
+texture_disabled = ExtResource("3_1e5un")
+texture_focused = ExtResource("3_1e5un")
+stretch_mode = 0
+
+[node name="ProjectPath" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/Info/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "C:/PathToProjects/project"
+label_settings = SubResource("LabelSettings_qmmom")
+text_overrun_behavior = 3
+
+[node name="Metadata" type="HBoxContainer" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="Version" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/Metadata"]
+layout_mode = 2
+size_flags_vertical = 8
+tooltip_text = "Godot version"
+mouse_filter = 1
+text = "6.0"
+label_settings = SubResource("LabelSettings_iny3q")
+vertical_alignment = 2
+
+[node name="Date of uhhhh" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer/Metadata"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "2024-01-19 04:20:69"
+label_settings = SubResource("LabelSettings_13hsq")
+vertical_alignment = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

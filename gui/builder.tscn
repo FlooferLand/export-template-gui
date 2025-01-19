@@ -1,0 +1,153 @@
+[gd_scene load_steps=7 format=3 uid="uid://0jbmy6adrr83"]
+
+[ext_resource type="Script" path="res://gui/builder.gd" id="1_hj4oe"]
+[ext_resource type="Texture2D" uid="uid://cufpy5oq1hjtw" path="res://gui/icons/Tools.svg" id="2_f4td7"]
+[ext_resource type="Texture2D" uid="uid://cco20keixaygc" path="res://gui/icons/Remove.svg" id="3_o71wf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jwb6"]
+bg_color = Color(0, 0, 0, 0.294118)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ooo5u"]
+line_spacing = 0.0
+font_size = 12
+font_color = Color(0, 0.545098, 1, 0.827451)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fsy2v"]
+font_size = 14
+font_color = Color(1, 1, 1, 0.580392)
+
+[node name="Main" type="Control" node_paths=PackedStringArray("build_size_label", "project_name_label", "project_path_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hj4oe")
+build_size_label = NodePath("VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/HBoxContainer/CleanButton/Size")
+project_name_label = NodePath("VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/ProjectInfo/Name")
+project_path_label = NodePath("VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/ProjectInfo/Path")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.103744, 0.103744, 0.103744, 1)
+
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+dragger_visibility = 1
+
+[node name="Tabs" type="TabContainer" parent="VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Setup" type="ScrollContainer" parent="VSplitContainer/Tabs"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="WidgetList" type="VBoxContainer" parent="VSplitContainer/Tabs/Setup"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GodotVersion" type="HSplitContainer" parent="VSplitContainer/Tabs/Setup/WidgetList"]
+layout_mode = 2
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="VSplitContainer/Tabs/Setup/WidgetList/GodotVersion"]
+layout_mode = 2
+text = "Godot version"
+
+[node name="OptionButton" type="OptionButton" parent="VSplitContainer/Tabs/Setup/WidgetList/GodotVersion"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+item_count = 1
+popup/item_0/text = "master"
+
+[node name="Modules" type="ScrollContainer" parent="VSplitContainer/Tabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="WidgetList" type="VBoxContainer" parent="VSplitContainer/Tabs/Modules"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BottomPanel" type="PanelContainer" parent="VSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6jwb6")
+
+[node name="MarginContainer" type="MarginContainer" parent="VSplitContainer/BottomPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VSplitContainer/BottomPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Build" type="Button" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Build"
+icon = ExtResource("2_f4td7")
+
+[node name="CleanButton" type="VBoxContainer" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Clean" type="Button" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/HBoxContainer/CleanButton"]
+layout_mode = 2
+focus_mode = 0
+text = "Clean Godot build"
+icon = ExtResource("3_o71wf")
+
+[node name="Size" type="Label" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/HBoxContainer/CleanButton"]
+layout_mode = 2
+text = "(?? GBs)"
+label_settings = SubResource("LabelSettings_ooo5u")
+horizontal_alignment = 1
+
+[node name="OutputPath" type="LineEdit" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Template output path"
+expand_to_text_length = true
+
+[node name="ProjectInfo" type="VBoxContainer" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Name" type="Label" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/ProjectInfo"]
+layout_mode = 2
+text = "Project name"
+horizontal_alignment = 2
+
+[node name="Path" type="Label" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/ProjectInfo"]
+layout_mode = 2
+text = "C:/Project/Path"
+label_settings = SubResource("LabelSettings_fsy2v")
+horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 3
+
+[connection signal="pressed" from="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/HBoxContainer/Build" to="." method="_on_build_pressed"]
