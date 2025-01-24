@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0uhggdatyjo"]
+[gd_scene load_steps=12 format=3 uid="uid://c0uhggdatyjo"]
 
 [ext_resource type="Script" path="res://gui/projects.gd" id="1_6yi3o"]
 [ext_resource type="Texture2D" uid="uid://b8s0h1cq2y8rv" path="res://gui/icons/Search.svg" id="2_4ictq"]
 [ext_resource type="Texture2D" uid="uid://bj7nutsmbqcwn" path="res://icon.svg" id="2_eqr1i"]
 [ext_resource type="Texture2D" uid="uid://chpd0lsnsrqqg" path="res://gui/icons/DefaultProjectIcon.svg" id="3_tvav5"]
 [ext_resource type="PackedScene" uid="uid://d2dq3anjcgc8t" path="res://gui/templates/project_entry.tscn" id="4_72jnl"]
+[ext_resource type="Texture2D" uid="uid://ht0hcpgbw7rq" path="res://gui/icons/FolderBigThumb.svg" id="5_dry6v"]
 [ext_resource type="Texture2D" uid="uid://dgydb40tnnfbw" path="res://gui/icons/Edit.svg" id="5_fp2oi"]
 [ext_resource type="Texture2D" uid="uid://biyoergq0p3td" path="res://gui/icons/Bake.svg" id="6_hewr1"]
 
@@ -13,12 +14,12 @@ bg_color = Color(0.101961, 0.101961, 0.101961, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_25qb7"]
 font_size = 14
-font_color = Color(0.39, 0.562833, 1, 0.658824)
+font_color = Color(0.32, 0.512667, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dmd6"]
 bg_color = Color(0.101961, 0.101961, 0.101961, 1)
 
-[node name="Projects" type="Control" node_paths=PackedStringArray("project_container")]
+[node name="Projects" type="Control" node_paths=PackedStringArray("project_container", "open_data_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6yi3o")
 project_container = NodePath("VBoxContainer/Main/VBoxContainer/Main/MarginContainer/ScrollContainer/PanelContainer/Projects")
+open_data_button = NodePath("VBoxContainer/Top/DataFolder/TextureButton")
 project_template = ExtResource("4_72jnl")
 default_icon = ExtResource("3_tvav5")
 
@@ -54,34 +56,50 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Logo" type="VBoxContainer" parent="VBoxContainer/Top"]
+[node name="Logo" type="HBoxContainer" parent="VBoxContainer/Top"]
 layout_mode = 2
-theme_override_constants/separation = 0
+size_flags_horizontal = 0
 
-[node name="Name" type="HBoxContainer" parent="VBoxContainer/Top/Logo"]
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="VBoxContainer/Top/Logo/Name"]
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Top/Logo"]
 layout_mode = 2
 texture = ExtResource("2_eqr1i")
 expand_mode = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Top/Logo/Name"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Top/Logo"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Top/Logo/Name/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Top/Logo/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Name" type="Label" parent="VBoxContainer/Top/Logo/Name/MarginContainer/VBoxContainer"]
+[node name="Name" type="Label" parent="VBoxContainer/Top/Logo/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Export Template GUI"
 
-[node name="Credits" type="Label" parent="VBoxContainer/Top/Logo/Name/MarginContainer/VBoxContainer"]
+[node name="Credits" type="Label" parent="VBoxContainer/Top/Logo/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "By FlooferLand & Swarkin"
+text = "By FlooferLand & contributors"
 label_settings = SubResource("LabelSettings_25qb7")
+
+[node name="DataFolder" type="HBoxContainer" parent="VBoxContainer/Top"]
+modulate = Color(1, 1, 1, 0.470588)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="VBoxContainer/Top/DataFolder"]
+layout_mode = 2
+text = "Open data folder"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/Top/DataFolder"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 10
+texture_normal = ExtResource("5_dry6v")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="Main" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -116,6 +134,7 @@ right_icon = ExtResource("2_4ictq")
 
 [node name="Sort" type="HSplitContainer" parent="VBoxContainer/Main/VBoxContainer/TopBar/HBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Label" type="Label" parent="VBoxContainer/Main/VBoxContainer/TopBar/HBoxContainer/Sort"]
 layout_mode = 2
@@ -181,4 +200,5 @@ focus_mode = 0
 text = "Quick build"
 icon = ExtResource("6_hewr1")
 
+[connection signal="pressed" from="VBoxContainer/Top/DataFolder/TextureButton" to="." method="_on_data_folder_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Main/VBoxContainer/Main/Sidebar/VBoxContainer/Edit" to="." method="_on_edit_pressed"]

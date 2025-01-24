@@ -3,6 +3,7 @@ class_name ETG_ProjectTemplate
 
 # Should be set by the project manager scene
 var info := ETG_ProjectInfo.new()
+var data: ETG_ProjectData
 
 # Current scene nodes
 @export_group("Local/Nodes")
@@ -35,7 +36,7 @@ func _ready() -> void:
 
 	# Folder browse button
 	folder_button.modulate = Color.BLACK.lerp(Color.WHITE, 0.5)
-	folder_button.pressed.connect(func(): OS.shell_open(info.path))
+	folder_button.pressed.connect(func(): OS.shell_show_in_file_manager(info.path))
 	folder_button.mouse_entered.connect(func():
 		folder_button.modulate = Color.BLACK.lerp(Color.WHITE, 1.0)
 	)

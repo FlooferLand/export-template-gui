@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhnkajoxcw881"]
+
+[ext_resource type="Script" path="res://gui/templates/module_entry.gd" id="1_7tg6v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dj2ai"]
+font_color = Color(0.67, 0.67, 0.67, 0.741176)
+
+[node name="ModuleEntry" type="Control"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.086
+offset_bottom = -25.728
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_7tg6v")
+
+[node name="Backdrop" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Module name"
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Description"
+label_settings = SubResource("LabelSettings_dj2ai")

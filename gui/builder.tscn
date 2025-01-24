@@ -16,7 +16,7 @@ font_color = Color(0, 0.545098, 1, 0.827451)
 font_size = 14
 font_color = Color(1, 1, 1, 0.580392)
 
-[node name="Main" type="Control" node_paths=PackedStringArray("build_size_label", "project_name_label", "project_path_label")]
+[node name="Main" type="Control" node_paths=PackedStringArray("build_size_label", "project_name_label", "project_path_label", "project_branch_picker", "project_repo_edit", "module_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +27,9 @@ script = ExtResource("1_hj4oe")
 build_size_label = NodePath("VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/HBoxContainer/CleanButton/Size")
 project_name_label = NodePath("VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/ProjectInfo/Name")
 project_path_label = NodePath("VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/ProjectInfo/Path")
+project_branch_picker = NodePath("VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList/GodotBranch/OptionButton")
+project_repo_edit = NodePath("VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList/GodotRepo/LineEdit")
+module_list = NodePath("VSplitContainer/Tabs/Modules/ScrollContainer/WidgetList")
 
 [node name="Backdrop" type="ColorRect" parent="."]
 layout_mode = 1
@@ -49,41 +52,89 @@ dragger_visibility = 1
 [node name="Tabs" type="TabContainer" parent="VSplitContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 1
 
-[node name="Setup" type="ScrollContainer" parent="VSplitContainer/Tabs"]
+[node name="Setup" type="MarginContainer" parent="VSplitContainer/Tabs"]
+visible = false
 layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 metadata/_tab_index = 0
 
-[node name="WidgetList" type="VBoxContainer" parent="VSplitContainer/Tabs/Setup"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VSplitContainer/Tabs/Setup"]
+layout_mode = 2
+
+[node name="WidgetList" type="VBoxContainer" parent="VSplitContainer/Tabs/Setup/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GodotVersion" type="HSplitContainer" parent="VSplitContainer/Tabs/Setup/WidgetList"]
+[node name="GodotRepo" type="HSplitContainer" parent="VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList"]
 layout_mode = 2
 dragger_visibility = 1
 
-[node name="Label" type="Label" parent="VSplitContainer/Tabs/Setup/WidgetList/GodotVersion"]
+[node name="Label" type="Label" parent="VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList/GodotRepo"]
+layout_mode = 2
+text = "Godot GitHub repository"
+
+[node name="LineEdit" type="LineEdit" parent="VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList/GodotRepo"]
+layout_mode = 2
+
+[node name="GodotBranch" type="HSplitContainer" parent="VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList"]
+layout_mode = 2
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList/GodotBranch"]
 layout_mode = 2
 text = "Godot version"
 
-[node name="OptionButton" type="OptionButton" parent="VSplitContainer/Tabs/Setup/WidgetList/GodotVersion"]
+[node name="OptionButton" type="OptionButton" parent="VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList/GodotBranch"]
+custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 focus_mode = 0
+alignment = 1
+selected = 0
 item_count = 1
 popup/item_0/text = "master"
 
-[node name="Modules" type="ScrollContainer" parent="VSplitContainer/Tabs"]
-visible = false
+[node name="Modules" type="MarginContainer" parent="VSplitContainer/Tabs"]
 layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 metadata/_tab_index = 1
 
-[node name="WidgetList" type="VBoxContainer" parent="VSplitContainer/Tabs/Modules"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VSplitContainer/Tabs/Modules"]
+layout_mode = 2
+
+[node name="WidgetList" type="VBoxContainer" parent="VSplitContainer/Tabs/Modules/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Logging" type="MarginContainer" parent="VSplitContainer/Tabs"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VSplitContainer/Tabs/Logging"]
+layout_mode = 2
+
+[node name="CodeEdit" type="CodeEdit" parent="VSplitContainer/Tabs/Logging/ScrollContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "Logs will show up here"
+editable = false
 
 [node name="BottomPanel" type="PanelContainer" parent="VSplitContainer"]
 layout_mode = 2
@@ -96,7 +147,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VSplitContainer/BottomPanel/MarginContainer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="VSplitContainer/BottomPanel/MarginContainer"]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer"]
@@ -135,7 +186,7 @@ expand_to_text_length = true
 [node name="ProjectInfo" type="VBoxContainer" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 10
 
 [node name="Name" type="Label" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/ProjectInfo"]
 layout_mode = 2
@@ -150,4 +201,11 @@ horizontal_alignment = 2
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="SaveButton" type="Button" parent="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer"]
+layout_mode = 2
+text = "Save"
+
+[connection signal="focus_exited" from="VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList/GodotRepo/LineEdit" to="." method="_on_repo_text_focus_exited"]
+[connection signal="item_selected" from="VSplitContainer/Tabs/Setup/ScrollContainer/WidgetList/GodotBranch/OptionButton" to="." method="_on_version_item_selected"]
 [connection signal="pressed" from="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/HBoxContainer/Build" to="." method="_on_build_pressed"]
+[connection signal="pressed" from="VSplitContainer/BottomPanel/MarginContainer/HSplitContainer/SaveButton" to="." method="_on_save_button_pressed"]

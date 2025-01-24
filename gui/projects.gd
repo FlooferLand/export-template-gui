@@ -3,6 +3,7 @@ class_name ETG_ProjectScreen
 
 @export_group("Nodes")
 @export var project_container: BoxContainer
+@export var open_data_button: TextureButton
 
 @export_group("References")
 @export var project_template: PackedScene
@@ -44,7 +45,14 @@ func _ready() -> void:
 		entry.info.favourite = config.get_value(path, "favorite", false)
 		entry.info.date = "??-??-????"   # ??
 		entry.info.version = "4.x"       # ??
+		entry.data = ETG_ProjectData.new(entry.info)
 		project_container.add_child(entry)
+
+	# Check if the user has installed stuff
+	ProjectManager.check_installed_necessary_things()
 
 func _on_edit_pressed() -> void:
 	ProjectManager.load_project(selected.info)
+
+func _on_data_folder_button_pressed() -> void:
+	OS.shell_show_in_file_manager(ETG_GodotRepo.new("", "").src_folder)

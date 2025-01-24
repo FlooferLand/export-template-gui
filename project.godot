@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 Autoload="*res://gui/autoload/autoload.gd"
 ProjectManager="*res://gui/autoload/project_manager.gd"
+Util="*res://gui/autoload/util.gd"
 
 [display]
 
